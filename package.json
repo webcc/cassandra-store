@@ -1,0 +1,33 @@
+{
+    "name": "cassandra-store",
+    "description": "Implementation of the session storage in Apache Cassandra as express middleware.",
+    "version": "0.0.1",
+    "author": {
+        "name": "Web Compliance Center",
+        "email": "webcc@fit.fraunhofer.de"
+    },
+    "dependencies": {
+        "debug": "2.0.0",
+        "cassandra-driver": "1.0.0-beta1"
+    },
+    "devDependencies": {
+        "mocha": "*"
+    },
+    "main": "index",
+    "licenses": [
+        {
+            "type": "Apache License",
+            "url": "https://github.com/webcc/cassandra-store/blob/master/LICENSE"
+        }
+    ],
+    "repository": {
+        "type" : "git",
+        "url" : "https://github.com/webcc/cassandra-store.git"
+    },
+    "readmeFilename": "README.md",
+    "engines": {
+        "node": ">=0.10.0"
+    },
+    "_id": "cassandra-store@0.0.1",
+    "_from": "cassandra-store@"
+}
