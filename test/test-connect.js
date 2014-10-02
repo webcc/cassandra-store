@@ -38,8 +38,12 @@ debug('testSessionId %s', testSessionId);
             assert.deepEqual({ cookie: { maxAge: 2000 }, name: 'tj' }, data);
 
             // #set null
-            store.set('123', { cookie: { maxAge: 2000 }, name: 'tj' }, function(){
-                store.destroy('123', function(){
+            store.set(testSessionId, { cookie: { maxAge: 2000 }, name: 'tj' }, function(err, ok){
+                if(err){
+                    debug(err);
+                }
+
+                store.destroy(testSessionId, function(err, ok){
                     debug('done');
                     process.exit(0);
                 });
