@@ -11,7 +11,8 @@
         "cassandra-driver": "1.0.0-beta1"
     },
     "devDependencies": {
-        "mocha": "*"
+        "mocha": "*",
+        "node-uuid": "*"
     },
     "main": "index",
     "licenses": [
