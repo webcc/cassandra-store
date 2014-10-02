@@ -9,18 +9,18 @@ Implementation of the session storage in Apache Cassandra as express middleware.
 
 ## Options
 
-  - "version": "3.1.0"
-  - "hosts": [ "localhost" ]
-  - "keyspace": "mykeyspace"
-  - "username": ""
-  - "password": "",
-  - "staleTime": 10000,
-  - "maxRequests": 16,
-  - "maxRequestsRetry": 10,
-  - "maxExecuteRetries": 5,
-  - "connectTimeout": 5000,
-  - "getAConnectionTimeout": 60000,
-  - "poolSize": 1      
+  - 'version': '3.1.0'
+  - 'hosts': [ 'localhost' ]
+  - 'keyspace': 'mykeyspace'
+  - 'username': ''
+  - 'password': '',
+  - 'staleTime': 10000,
+  - 'maxRequests': 16,
+  - 'maxRequestsRetry': 10,
+  - 'maxExecuteRetries': 5,
+  - 'connectTimeout': 5000,
+  - 'getAConnectionTimeout': 60000,
+  - 'poolSize': 1      
   - `ttl` Cassandra session TTL (expiration) in seconds
 
 Any options not included in this list will be passed to Cassandra directly.
