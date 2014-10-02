@@ -42,8 +42,10 @@ debug('testSessionId %s', testSessionId);
                 if(err){
                     debug(err);
                 }
-
                 store.destroy(testSessionId, function(err, ok){
+                    if(err){
+                        debug(err);
+                    }
                     debug('done');
                     process.exit(0);
                 });
