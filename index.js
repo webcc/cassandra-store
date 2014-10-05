@@ -1,1 +1,1 @@
-module.exports = require('./lib/connect-cassandra');
+module.exports = require("./lib/cassandra-store");

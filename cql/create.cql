@@ -1,5 +1,8 @@
-DROP TABLE "aztec_session";
-CREATE TABLE IF NOT EXISTS "aztec_session" (
+USE imergo_tests;
+
+DROP TABLE sessions;
+
+CREATE TABLE IF NOT EXISTS sessions (
    sid text PRIMARY KEY,
    sobject text
 );
