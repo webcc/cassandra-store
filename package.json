@@ -18,7 +18,7 @@
     "licenses": [
         {
             "type": "Apache License",
-            "url": "https://github.com/webcc/cassandra-store/blob/master/LICENSE"
+            "url": "https://github.com/webcc/cassandra-store/blob/master/LICENSE.md"
         }
     ],
     "repository": {
