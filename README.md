@@ -11,8 +11,21 @@ $ npm install cassandra-store
 
 ## Options
 
-- `contactPoints` : [ "host1:port1", "host2:port2" ]
-- `keyspace` : "DEFAULTKS"
+- `contactPoints`: [ "host1", "host2" ]
+- `keyspace`: "DEFAULTKS"
+- `protocolOptions`: JSON object `{ "port": 9042 }`
+
+For example:
+
+```
+{
+    "contactPoints": [ "cassandra.example.org" ],
+    "keyspace": "DEFAULTKS",
+    "protocolOptions": {
+            "port": 9042
+    }
+}
+```
 
 Other options come from the Cassandra driver directly.
 
