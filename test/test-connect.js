@@ -1,62 +1,76 @@
-var assert = require('assert');
-var session = require('express-session');
-var CassandraStore = require('../index')(session);
-var uuid = require('node-uuid');
-var debug = require('debug')('connect:cassandra-test');
+var assert = require("assert");
+var debug = require("debug")("cassandra-store");
+var session = require("express-session");
+var uuid = require("uuid");
+var CassandraStore = require("../index")(session);
 
-var dbOptions = {
-    "version": "3.1.0",
-    "hosts": [ "webcc-db.fit.fraunhofer.de" ],
-    "keyspace": "imergo_tests",
-    "username": "",
-    "password": "",
-    "staleTime": 10000,
-    "maxRequests": 16,
-    "maxRequestsRetry": 10,
-    "maxExecuteRetries": 5,
-    "connectTimeout": 5000,
-    "getAConnectionTimeout": 60000,
-    "poolSize": 1
+var id = uuid.v1();
+var options = {
+    "contactPoints": [ process.env.DBHOST ]
 };
-var store = new CassandraStore(dbOptions);
-var testSession = {
-    cookie: {
-        maxAge: 2000
+var store = new CassandraStore(options);
+var testSession =
+{
+    "cookie":
+    {
+        "path" : "/",
+        "httpOnly" : true,
+        "secure": true,
+        "maxAge" : 600000
     },
-    name: 'tj'
+    "name": "sid"
 };
-var testSessionId = "pre-"+ uuid.v4();
-debug('testSessionId %s', testSessionId);
-    // #set()
-    store.set(testSessionId, testSession, function(err, ok){
-        debug("store.setstore.setstore.set ");
-        assert.ok(!err, '#set() got an error');
-        assert.ok(ok, '#set() is not ok');
-        // #get()
-        store.get(testSessionId, function(err, data){
-            assert.ok(!err, '#get() got an error');
-            assert.deepEqual({ cookie: { maxAge: 2000 }, name: 'tj' }, data);
 
-            // #set null
-            store.set(testSessionId, { cookie: { maxAge: 2000 }, name: 'tj' }, function(err, ok){
-                if(err){
-                    debug(err);
+describe("cassandra-store", function()
+{
+    describe("#set", function()
+    {
+        before(function(done)
+        {
+            store.set(id, testSession, function (error, result)
+            {
+                if (error)
+                {
+                    debug("Error: %s", error);
                 }
-                store.destroy(testSessionId, function(err, ok){
-                    if(err){
-                        debug(err);
-                    }
-                    debug('done');
-                    process.exit(0);
-                });
+                else
+                {
+                    debug("Result: %s", JSON.stringify(result, null, 0));
+                }
+                done();
+            });
+        });
+        it("should get an existing session", function(done)
+        {
+            store.get(id, function (error, session)
+            {
+                if(error)
+                {
+                    debug("Error: %s", error);
+                }
+                else
+                {
+                    debug("Session: %s", JSON.stringify(session, null, 0));
+                }
+                assert.deepEqual(session, testSession);
+                done();
+            });
+        });
+        it("should destroy an existing session", function(done)
+        {
+            store.destroy(id, function (error, result)
+            {
+                if(error)
+                {
+                    debug(error.message);
+                }
+                else
+                {
+                    debug(result);
+                }
+                assert.equal(result.header.opcode, 8);
+                done();
             });
         });
     });
-
-
-
-process.once('uncaughtException', function (err) {
-    debug(err);
-    //assert.ok(err.message === 'Error in fn', '#get() catch wrong error');
-
 });

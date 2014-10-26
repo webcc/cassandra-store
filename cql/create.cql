@@ -1,6 +1,6 @@
-USE imergo_tests;
+USE tests;
 
-DROP TABLE sessions;
+DROP TABLE IF EXISTS sessions;
 
 CREATE TABLE IF NOT EXISTS sessions (
    sid text PRIMARY KEY,
