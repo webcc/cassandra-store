@@ -1,0 +1,19 @@
+{
+    "contactPoints": [ "localhost" ],
+    "keyspace": "tests",
+    "protocolOptions": {
+        "port": 9042
+    },
+    "socketOptions": {
+        "connectTimeout": 5000
+    },
+    "queryOptions": {
+        "fetchSize": 10000,
+        "autoPage": true,
+        "prepare": true
+    },
+    "authProvider": {
+        "username": "",
+        "password": ""
+    }
+}

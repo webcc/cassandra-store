@@ -23,6 +23,10 @@ For example:
     "keyspace": "tests",
     "protocolOptions": {
         "port": 9042
+    },
+    "authProvider": {
+        "username": "",
+        "password": ""
     }
 }
 ```

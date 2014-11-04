@@ -4,25 +4,23 @@ var session = require("express-session");
 var uuid = require("uuid");
 var CassandraStore = require("../index")(session);
 
-var id = uuid.v1();
-var options = {
-    "contactPoints": [ process.env.DBHOST ]
-};
-var store = new CassandraStore(options);
-var testSession =
-{
-    "cookie":
-    {
-        "path" : "/",
-        "httpOnly" : true,
-        "secure": true,
-        "maxAge" : 600000
-    },
-    "name": "sid"
-};
-
 describe("cassandra-store", function()
 {
+    var id = uuid.v1();
+    var options = require("./config/cassandra.json");
+    options.contactPoints = [ process.env.DBHOST || options.contactPoints[0] ];
+    var store = new CassandraStore(options);
+    var testSession =
+    {
+        "cookie":
+        {
+            "path" : "/",
+            "httpOnly" : true,
+            "secure": true,
+            "maxAge" : 600000
+        },
+        "name": "sid"
+    };
     describe("#set", function()
     {
         before(function(done)
