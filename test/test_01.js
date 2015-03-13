@@ -1,3 +1,4 @@
+"use strict";
 var assert = require("assert");
 var debug = require("debug")("cassandra-store");
 var session = require("express-session");
@@ -66,7 +67,7 @@ describe("cassandra-store", function()
                 {
                     debug(result);
                 }
-                assert.equal(result.header.opcode, 8);
+                assert.equal(error, undefined);
                 done();
             });
         });
