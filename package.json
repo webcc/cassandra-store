@@ -1,20 +1,19 @@
 {
     "name": "cassandra-store",
     "description": "Implementation of the session storage in Apache Cassandra as express middleware.",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "author": {
         "name": "Web Compliance Center",
         "email": "webcc@fit.fraunhofer.de"
     },
     "dependencies": {
-        "cassandra-driver": "2.0.0",
-        "debug": "2.1.2",
-        "express-session": "1.10.3",
-        "underscore": "1.8.2"
+        "cassandra-driver": "2.0.1",
+        "debug": "2.1.3",
+        "express-session": "1.11.1",
+        "underscore": "1.8.3"
     },
     "devDependencies": {
-        "mocha": "*",
-        "uuid": "2.0.1"
+        "mocha": "*"
     },
     "main": "index",
     "licenses": [
@@ -31,6 +30,6 @@
     "engines": {
         "node": ">=0.10.0"
     },
-    "_id": "cassandra-store@1.0.0",
+    "_id": "cassandra-store@1.0.1",
     "_from": "cassandra-store@"
 }

@@ -2,12 +2,12 @@
 var assert = require("assert");
 var debug = require("debug")("cassandra-store");
 var session = require("express-session");
-var uuid = require("uuid");
+var uuid = require('cassandra-driver').types.TimeUuid;
 var CassandraStore = require("../index")(session);
 
 describe("cassandra-store", function()
 {
-    var id = uuid.v1();
+    var id = uuid.now();
     var options = require("./config/cassandra.json");
     options.contactPoints = [ process.env.DBHOST || options.contactPoints[0] ];
     var store = new CassandraStore(options);
