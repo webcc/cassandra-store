@@ -1,10 +1,6 @@
 cassandra-store
 ===============
 
-[![NPM Version][npm-image]][npm-url]
-[![NPM Downloads][downloads-image]][downloads-url]
-![Github Stars][cassandra-store-image]
-
 Implementation of the session storage in Apache Cassandra as express middleware.
 
 ## Installation
