@@ -1,12 +1,12 @@
 "use strict";
-var assert = require("assert");
-var debug = require("debug")("cassandra-store");
-var session = require("express-session");
-var uuid = require('cassandra-driver').types.TimeUuid;
-var CassandraStore = require("../index")(session);
 
 describe("cassandra-store", function()
 {
+    var assert = require("assert");
+    var debug = require("debug")("cassandra-store");
+    var session = require("express-session");
+    var uuid = require("cassandra-driver").types.TimeUuid;
+    var CassandraStore = require("../lib/cassandra-store")(session);
     var id = uuid.now();
     var options = require("./config/cassandra.json");
     options.contactPoints = [ process.env.DBHOST || options.contactPoints[0] ];

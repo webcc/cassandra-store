@@ -15,7 +15,7 @@
     "devDependencies": {
         "mocha": "*"
     },
-    "main": "index",
+    "main": "./lib/cassandra-store",
     "licenses": [
         {
             "type": "Apache License",
