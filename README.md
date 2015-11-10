@@ -31,8 +31,7 @@ For example:
 }
 ```
 
-Other options come from the Cassandra client driver directly (version 2.0).
-See: http://www.datastax.com/documentation/developer/nodejs-driver/2.0/nodejs-driver/
+Other options come from the [Cassandra client driver](https://docs.datastax.com/en/developer/nodejs-driver/2.2/nodejs-driver/whatsNew.html) (version 2.x).
 
 ## Configuring the database
 
