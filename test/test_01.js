@@ -5,12 +5,13 @@ describe("cassandra-store", function()
     var assert = require("assert");
     var debug = require("debug")("cassandra-store");
     var session = require("express-session");
-    var uuid = require("cassandra-driver").types.TimeUuid;
+    var cassandra = require("cassandra-driver");
     var CassandraStore = require("../lib/cassandra-store")(session);
-    var id = uuid.now();
+    var id = cassandra.types.TimeUuid.now();
     var options = require("./config/cassandra.json");
     options.contactPoints = [ process.env.DBHOST || options.contactPoints[0] ];
-    var store = new CassandraStore(options);
+    var customClient = new cassandra.Client(options);
+    var store = null;
     var testSession =
     {
         "cookie":
@@ -22,26 +23,69 @@ describe("cassandra-store", function()
         },
         "name": "sid"
     };
-    describe("#set", function()
+    describe("constructed client", function()
     {
         before(function(done)
         {
-            store.set(id, testSession, function (error, result)
+            store = new CassandraStore(options);
+            done();
+        });
+        describe("#set", function()
+        {
+            before(function(done)
             {
-                if (error)
+                store.set(id, testSession, function (error, result)
                 {
-                    debug("Error: %s", error);
-                }
-                else
+                    if (error)
+                    {
+                        debug("Error: %s", error);
+                    }
+                    else
+                    {
+                        debug("Result: %s", JSON.stringify(result, null, 0));
+                    }
+                    done();
+                });
+            });
+            it("should get an existing session", function(done)
+            {
+                store.get(id, function (error, session)
                 {
-                    debug("Result: %s", JSON.stringify(result, null, 0));
-                }
-                done();
+                    if(error)
+                    {
+                        debug("Error: %s", error);
+                    }
+                    else
+                    {
+                        debug("Session: %s", JSON.stringify(session, null, 0));
+                    }
+                    assert.deepEqual(session, testSession);
+                    done();
+                });
+            });
+            it("should destroy an existing session", function(done)
+            {
+                store.destroy(id, function (error, result)
+                {
+                    if(error)
+                    {
+                        debug(error.message);
+                    }
+                    else
+                    {
+                        debug(result);
+                    }
+                    assert.equal(error, undefined);
+                    done();
+                });
             });
         });
-        it("should get an existing session", function(done)
+    });
+    describe("custom client", function()
+    {
+        before(function(done)
         {
-            store.get(id, function (error, session)
+            customClient.connect(function(error)
             {
                 if(error)
                 {
@@ -49,26 +93,61 @@ describe("cassandra-store", function()
                 }
                 else
                 {
-                    debug("Session: %s", JSON.stringify(session, null, 0));
+                    store = new CassandraStore({
+                      client: customClient
+                    });
                 }
-                assert.deepEqual(session, testSession);
                 done();
             });
         });
-        it("should destroy an existing session", function(done)
+        describe("#set", function()
         {
-            store.destroy(id, function (error, result)
+            before(function(done)
             {
-                if(error)
+                store.set(id, testSession, function (error, result)
                 {
-                    debug(error.message);
-                }
-                else
+                    if (error)
+                    {
+                        debug("Error: %s", error);
+                    }
+                    else
+                    {
+                        debug("Result: %s", JSON.stringify(result, null, 0));
+                    }
+                    done();
+                });
+            });
+            it("should get an existing session", function(done)
+            {
+                store.get(id, function (error, session)
                 {
-                    debug(result);
-                }
-                assert.equal(error, undefined);
-                done();
+                    if(error)
+                    {
+                        debug("Error: %s", error);
+                    }
+                    else
+                    {
+                        debug("Session: %s", JSON.stringify(session, null, 0));
+                    }
+                    assert.deepEqual(session, testSession);
+                    done();
+                });
+            });
+            it("should destroy an existing session", function(done)
+            {
+                store.destroy(id, function (error, result)
+                {
+                    if(error)
+                    {
+                        debug(error.message);
+                    }
+                    else
+                    {
+                        debug(result);
+                    }
+                    assert.equal(error, undefined);
+                    done();
+                });
             });
         });
     });
