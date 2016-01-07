@@ -11,24 +11,19 @@ $ npm install cassandra-store
 
 ## Options
 
-- `contactPoints`: [ "host1", "host2" ]
-- `keyspace`: "tests"
-- `protocolOptions`: JSON object `{ "port": 9042 }`
-
-For example:
-
 ```
 {
-    "contactPoints": [ "localhost" ],
-    "keyspace": "tests",
-    "protocolOptions": {
-        "port": 9042
-    },
-    "authProvider": {
-        "username": "",
-        "password": ""
+    keyspace: "tests",
+    table: "sessions",
+    client: null, // an existing cassandra client
+    clientOptions: { // more https://github.com/datastax/nodejs-driver
+        contactPoints: [ "localhost" ],
+        queryOptions: {
+            "prepare": true
+        }
     }
-}
+    // session options: https://github.com/expressjs/session
+};
 ```
 
 Other options come from the [Cassandra client driver](https://docs.datastax.com/en/developer/nodejs-driver/2.2/nodejs-driver/whatsNew.html) (version 2.x).
