@@ -1,5 +1,0 @@
-{
-    "DELETE": "DELETE FROM %s WHERE sid='%s';",
-    "SELECT": "SELECT sobject FROM %s WHERE sid='%s';",
-    "UPDATE": "UPDATE %s USING TTL %d SET sobject='%s' WHERE sid='%s';"
-}

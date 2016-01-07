@@ -6,9 +6,9 @@ describe("cassandra-store::WithClient", function ()
     var debug = require("debug")("cassandra-store");
     var session = require("express-session");
     var cassandra = require("cassandra-driver");
-    var uuid = cassandra.types.TimeUuid;
+    var uuid = require("uuid");
     var CassandraStore = require("../lib/cassandra-store")(session);
-    var id = uuid.now();
+    var id = uuid.v1();
     var testSession = {
         "cookie": {
             "path": "/",
@@ -22,7 +22,7 @@ describe("cassandra-store::WithClient", function ()
     before(function(done)
     {
         var customClient = new cassandra.Client({
-            contactPoints: [process.env.DBHOST || options.clientOptions.contactPoints[0]]
+            contactPoints: [process.env.DBHOST || "localhost"]
         });
         var options = {
             keyspace: "tests",
