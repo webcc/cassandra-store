@@ -1,7 +1,5 @@
 "use strict";
 
-process.env.DBHOST = "webcc-db";
-
 describe("cassandra-store::NoClient", function ()
 {
     var assert = require("assert");
