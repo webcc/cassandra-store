@@ -9,8 +9,7 @@
     "dependencies": {
         "cassandra-driver": "2.2.2",
         "debug": "2.2.0",
-        "express-session": "1.12.1",
-        "underscore": "1.8.3"
+        "express-session": "1.12.1"
     },
     "devDependencies": {
         "mocha": "*"
