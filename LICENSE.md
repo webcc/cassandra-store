@@ -1,6 +1,6 @@
 # WebCC Public License
 
-Copyright © 2014 Fraunhofer-Gesellschaft - Fraunhofer Institute for Applied Information Technology FIT
+Copyright © 2014-2016 Fraunhofer-Gesellschaft - Fraunhofer Institute for Applied Information Technology FIT
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use these files except in compliance with the License.
