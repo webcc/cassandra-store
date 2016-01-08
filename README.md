@@ -35,9 +35,12 @@ following CQL commands:
 ```
 CREATE KEYSPACE tests
   WITH replication = {'class': 'SimpleStrategy', 'dataCenterName': 1};
-CREATE TABLE IF NOT EXISTS sessions (
-   sid text PRIMARY KEY,
-   sobject text
+CREATE TABLE IF NOT EXISTS express_session (
+   sid text,
+   session text,
+   expires timestamp,
+   expired boolean,
+   PRIMARY KEY ((sid), expired, expires)
 );
 ```
 
