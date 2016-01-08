@@ -96,7 +96,7 @@ describe("cassandra-store::WithClient", function ()
             else
             {
                 assert.equal(sessions.length, 1);
-//                assert.deepEqual(sessions[0] , testSession); //FIXME: fix session.all strignify
+                assert.deepEqual(sessions[0] , testSession);
             }
             done();
         });
