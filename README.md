@@ -22,7 +22,6 @@ $ npm install cassandra-store
             "prepare": true
         }
     }
-    // session options: https://github.com/expressjs/session
 };
 ```
 
