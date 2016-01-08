@@ -61,6 +61,22 @@ describe("cassandra-store::NoClient", function ()
             done();
         });
     });
+    it("should get all existing sessions", function (done)
+    {
+        store.all(function (error, sessions)
+        {
+            if (error)
+            {
+                debug("Error: %s", error);
+            }
+            else
+            {
+                assert.equal(sessions.length, 1);
+                assert.deepEqual(sessions[0] , testSession);
+            }
+            done();
+        });
+    });
     it("should destroy an existing session", function (done)
     {
         store.destroy(id, function (error, result)
