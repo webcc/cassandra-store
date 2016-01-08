@@ -13,11 +13,11 @@ $ npm install cassandra-store
 
 ```
 {
-    keyspace: "tests",
     table: "sessions",
     client: null, // an existing cassandra client
     clientOptions: { // more https://github.com/datastax/nodejs-driver
         contactPoints: [ "localhost" ],
+        keyspace: "tests",
         queryOptions: {
             "prepare": true
         }
