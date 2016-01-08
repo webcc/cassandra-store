@@ -11,7 +11,7 @@ describe("cassandra-store::NoClient", function ()
     var id = uuid.v1();
     var options = {
         keyspace: "tests",
-        table: "sessions",
+        table: "express_session",
         clientOptions: {
             contactPoints: [process.env.DBHOST || "localhost"]
         }

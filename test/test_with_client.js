@@ -26,7 +26,7 @@ describe("cassandra-store::WithClient", function ()
         });
         var options = {
             keyspace: "tests",
-            table: "sessions",
+            table: "express_session",
             client: customClient
         };
         customClient.connect(function(error)
