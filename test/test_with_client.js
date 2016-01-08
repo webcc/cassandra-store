@@ -101,6 +101,27 @@ describe("cassandra-store::WithClient", function ()
             done();
         });
     });
+    it("should touch a session", function (done)
+    {
+        testSession.cookie.maxAge = 10000;
+        store.touch(id, testSession, function (error)
+        {
+            assert.equal(error, null);
+            store.get(id, function (err, session)
+            {
+                if (err)
+                {
+                    debug("Error: %s", error);
+                }
+                else
+                {
+                    debug("Session: %s", JSON.stringify(session, null, 0));
+                }
+                assert.deepEqual(session, testSession);
+                done();
+            });
+        });
+    });
     it("should destroy an existing session", function (done)
     {
         store.destroy(id, function (error, result)
