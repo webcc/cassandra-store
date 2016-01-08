@@ -22,10 +22,10 @@ describe("cassandra-store::WithClient", function ()
     before(function(done)
     {
         var customClient = new cassandra.Client({
-            contactPoints: [process.env.DBHOST || "localhost"]
+            contactPoints: [process.env.DBHOST || "localhost"],
+            keyspace: "tests"
         });
         var options = {
-            keyspace: "tests",
             table: "express_session",
             client: customClient
         };

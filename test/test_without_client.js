@@ -10,10 +10,10 @@ describe("cassandra-store::NoClient", function ()
     var CassandraStore = require("../lib/cassandra-store")(session);
     var id = uuid.v1();
     var options = {
-        keyspace: "tests",
         table: "express_session",
         clientOptions: {
-            contactPoints: [process.env.DBHOST || "localhost"]
+            contactPoints: [process.env.DBHOST || "localhost"],
+            keyspace: "tests"
         }
     };
     var testSession = {
