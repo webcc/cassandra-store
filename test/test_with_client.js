@@ -101,6 +101,21 @@ describe("cassandra-store::WithClient", function ()
             done();
         });
     });
+    it("should get the length of active sessions", function (done)
+    {
+        store.length(function (error, length)
+        {
+            if (error)
+            {
+                debug("Error: %s", error);
+            }
+            else
+            {
+                assert.equal(length, 1);
+            }
+            done();
+        });
+    });
     it("should touch a session", function (done)
     {
         testSession.cookie.maxAge = 10000;
