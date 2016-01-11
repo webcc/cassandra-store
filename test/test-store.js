@@ -1,6 +1,5 @@
 "use strict";
-
-describe("cassandra-store::NoClient", function ()
+describe("cassandra-store", function ()
 {
     var assert = require("assert");
     var debug = require("debug")("cassandra-store");
@@ -26,22 +25,33 @@ describe("cassandra-store::NoClient", function ()
         "name": "sid"
     };
     var store = null;
-    before(function ()
+    it("should init a store from client config", function ()
     {
         store = new CassandraStore(options);
+        assert(typeof store.client === "object");
+        assert.equal(store.client.keyspace, options.clientOptions.keyspace);
+    });
+    it("should init a store with a custom client", function (done)
+    {
+        var customClient = new cassandra.Client(options.clientOptions);
+        var opts = {
+            table: "express_session",
+            client: customClient
+        };
+        customClient.connect(function (error)
+        {
+            assert.equal(error, null);
+            store = new CassandraStore(opts);
+            assert(typeof store.client === "object");
+            assert.equal(store.client.keyspace, options.clientOptions.keyspace);
+            done();
+        });
     });
     it("should set a session", function (done)
     {
         store.set(id, testSession, function (error, result)
         {
-            if (error)
-            {
-                debug("Error: %s", error);
-            }
-            else
-            {
-                debug("Result: %s", JSON.stringify(result, null, 0));
-            }
+            assert.equal(error, null);
             done();
         });
     });
@@ -49,14 +59,7 @@ describe("cassandra-store::NoClient", function ()
     {
         store.get(id, function (error, session)
         {
-            if (error)
-            {
-                debug("Error: %s", error);
-            }
-            else
-            {
-                debug("Session: %s", JSON.stringify(session, null, 0));
-            }
+            assert.equal(error, null);
             assert.deepEqual(session, testSession);
             done();
         });
@@ -65,15 +68,9 @@ describe("cassandra-store::NoClient", function ()
     {
         store.all(function (error, sessions)
         {
-            if (error)
-            {
-                debug("Error: %s", error);
-            }
-            else
-            {
-                assert.equal(sessions.length, 1);
-                assert.deepEqual(sessions[0] , testSession);
-            }
+            assert.equal(error, null);
+            assert.equal(sessions.length, 1);
+            assert.deepEqual(sessions[0], testSession);
             done();
         });
     });
@@ -81,14 +78,7 @@ describe("cassandra-store::NoClient", function ()
     {
         store.destroy(id, function (error, result)
         {
-            if (error)
-            {
-                debug(error.message);
-            }
-            else
-            {
-                debug(result);
-            }
+            assert.equal(error, null);
             assert.equal(error, undefined);
             done();
         });

@@ -1,7 +1,7 @@
 {
   "name": "cassandra-store",
   "description": "Implementation of the session storage in Apache Cassandra as express middleware.",
-  "version": "1.0.5",
+  "version": "2.0.0",
   "author": {
     "name": "Web Compliance Center",
     "email": "webcc@fit.fraunhofer.de"
