@@ -7,13 +7,13 @@
     "email": "webcc@fit.fraunhofer.de"
   },
   "dependencies": {
-    "cassandra-driver": "3.0.0",
-    "debug": "2.2.0",
-    "express-session": "1.12.1"
+    "cassandra-driver": "^3.0.1",
+    "express-session": "^1.13.0"
   },
   "devDependencies": {
-    "mocha": "*",
-    "uuid": "2.0.1"
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5",
+    "uuid": "^2.0.1"
   },
   "homepage": "https://imergo.com/solutions/opensource.html",
   "main": "./lib/cassandra-store",
@@ -23,10 +23,7 @@
     "url": "https://github.com/webcc/cassandra-store.git"
   },
   "scripts": {
-    "test": "mocha -R spec -t 7000 test/test-*.js"
+    "test": "mocha -t 5000"
   },
-  "readmeFilename": "README.md",
-  "engines": {
-    "node": ">=0.12.0"
-  }
+  "readmeFilename": "README.md"
 }
