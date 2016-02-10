@@ -1,0 +1,12 @@
+# Logs
+**/*.log
+**/*.log.*
+
+# Dependency directory
+# Deployed apps should consider commenting this line out:
+# see https://docs.npmjs.com/misc/faq#should-i-check-my-node-modules-folder-into-git
+node_modules
+
+# OS X
+.DS_Store
+.localized
