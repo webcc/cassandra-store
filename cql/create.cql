@@ -5,10 +5,8 @@ CREATE KEYSPACE sessions_store WITH replication = {
   'replication_factor': '1'
 };
 
-DROP TABLE IF EXISTS sessions_store.sessions;
-
-CREATE TABLE IF NOT EXISTS sessions_store.sessions (
+CREATE TABLE sessions_store.sessions (
    sid text,
    session text,
    PRIMARY KEY (sid)
-);
+) WITH default_time_to_live = 3600; // 1 hour
