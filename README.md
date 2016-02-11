@@ -3,13 +3,30 @@ cassandra-store
 
 Implementation of the session storage in Apache Cassandra as express middleware.
 
-## Installation
+Installation
+------------
 
 ```
-$ npm install cassandra-store
+$ npm install --save cassandra-store
 ```
 
-## Options
+Usage
+-----
+
+Usage within express:
+
+```
+const session = require("express-session");
+const CassandraStore = require("cassandra-store");
+
+app.use(session({
+    store: new CassandraStore(options),
+    ...
+}));
+```
+
+Options
+-------
 
 ```
 {
@@ -17,42 +34,46 @@ $ npm install cassandra-store
     client: null, // an existing cassandra client
     clientOptions: { // more https://github.com/datastax/nodejs-driver
         contactPoints: [ "localhost" ],
-        keyspace: "tests",
-        queryOptions: {
-            "prepare": true
-        }
+        keyspace: "sessions_store"
     }
 };
 ```
 
-Other options come from the [Cassandra client driver](https://docs.datastax.com/en/developer/nodejs-driver/2.2/nodejs-driver/whatsNew.html) (version 2.x).
+Notes:
 
-## Configuring the database
+-	If no `options.client` is supplied a new one is created using `options.clientOptions`
+-	If the client does not have a keyspace configured you must include it in the table name: `table: "sessions_store.sessions"`
 
-To create the table in the Cassandra database, you need the execute the
-following CQL commands:
+Configuring the database
+------------------------
+
+To create the table in the Cassandra database, you need the execute the following CQL commands:
 
 ```
-CREATE KEYSPACE tests
-  WITH replication = {'class': 'SimpleStrategy', 'dataCenterName': 1};
-CREATE TABLE IF NOT EXISTS express_session (
+DROP KEYSPACE IF EXISTS sessions_store;
+
+CREATE KEYSPACE sessions_store WITH replication = {
+  'class': 'SimpleStrategy',
+  'replication_factor': '1'
+};
+
+CREATE TABLE sessions_store.sessions (
    sid text,
    session text,
-   expires timestamp,
    PRIMARY KEY (sid)
-);
+) WITH default_time_to_live = 3600; // 1 hour
 ```
 
-## Usage
-
-Usage within express:
+Test
+====
 
 ```
-var session = require("express-session");
-var CassandraStore = require("cassandra-store")(session);
+# Export Cassandra host address
+export DBHOST=cassandra.example.org
 
-app.use(session({
-    store: new CassandraStore(options),
-    ...
-}));
+# Initialize schema
+cqlsh -f ./cql/create.cql
+
+# Run tests with
+npm test
 ```
