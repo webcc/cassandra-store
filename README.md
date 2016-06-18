@@ -1,12 +1,18 @@
 cassandra-store
 ===============
 
-Implementation of the session storage in Apache Cassandra as express middleware.
+[![NPM Version][npm-image]][npm-url]
+[![NPM Downloads][downloads-image]][downloads-url]
+
+Implementation of the session storage in [Apache Cassandra](https://cassandra.apache.org/)
+as an extension of the [express-session middleware](https://github.com/expressjs/session).
+This version has been fully updated to ES6 and Node.js >= 6.0.0. For backwards
+compatibility, use older versions of the package.
 
 ## Installation
 
-```
-$ npm install cassandra-store
+```console
+$ npm install [-g] cassandra-store
 ```
 
 ## Options
@@ -15,7 +21,7 @@ $ npm install cassandra-store
 {
     table: "sessions",
     client: null, // an existing cassandra client
-    clientOptions: { // more https://github.com/datastax/nodejs-driver
+    clientOptions: {
         contactPoints: [ "localhost" ],
         keyspace: "tests",
         queryOptions: {
@@ -25,7 +31,7 @@ $ npm install cassandra-store
 };
 ```
 
-Other options come from the [Cassandra client driver](https://docs.datastax.com/en/developer/nodejs-driver/2.2/nodejs-driver/whatsNew.html) (version 2.x).
+Client options come from the [Cassandra client driver](http://docs.datastax.com/en/drivers/nodejs/3.0/) (version 3.x).
 
 ## Configuring the database
 
@@ -33,26 +39,41 @@ To create the table in the Cassandra database, you need the execute the
 following CQL commands:
 
 ```
-CREATE KEYSPACE tests
-  WITH replication = {'class': 'SimpleStrategy', 'dataCenterName': 1};
-CREATE TABLE IF NOT EXISTS express_session (
+USE tests;
+
+DROP TABLE IF EXISTS sessions;
+
+CREATE TABLE IF NOT EXISTS sessions (
    sid text,
    session text,
    expires timestamp,
-   PRIMARY KEY (sid)
+   PRIMARY KEY(sid)
 );
+```
+
+## Debugging
+
+To activate debugging, set the environment variable `NODE_DEBUG`:
+
+```console
+$ export NODE_DEBUG=cassandra-store
 ```
 
 ## Usage
 
 Usage within express:
 
-```
-var session = require("express-session");
-var CassandraStore = require("cassandra-store")(session);
+```javascript
+const session = require("express-session");
+const CassandraStore = require("cassandra-store");
 
 app.use(session({
     store: new CassandraStore(options),
     ...
 }));
 ```
+
+## Major changes
+
+- Updated to ES6 and Node.js >= 6.0.0
+- Removed dependencies on external packages uuid and debug

@@ -1,32 +1,30 @@
 {
-  "name": "cassandra-store",
-  "description": "Implementation of the session storage in Apache Cassandra as express middleware.",
-  "version": "3.0.0",
-  "author": {
-    "name": "Web Compliance Center",
-    "email": "webcc@fit.fraunhofer.de"
-  },
-  "dependencies": {
-    "cassandra-driver": "3.0.0",
-    "debug": "2.2.0",
-    "express-session": "1.12.1"
-  },
-  "devDependencies": {
-    "mocha": "*",
-    "uuid": "2.0.1"
-  },
-  "homepage": "https://imergo.com/solutions/opensource.html",
-  "main": "./lib/cassandra-store",
-  "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/webcc/cassandra-store.git"
-  },
-  "scripts": {
-    "test": "mocha -R spec -t 7000 test/test-*.js"
-  },
-  "readmeFilename": "README.md",
-  "engines": {
-    "node": ">=0.12.0"
-  }
+    "name": "cassandra-store",
+    "description": "Implementation of the session storage in Apache Cassandra as express middleware.",
+    "version": "4.0.0",
+    "author": {
+        "name": "Web Compliance Center",
+        "email": "webcc@fit.fraunhofer.de"
+    },
+    "dependencies": {
+        "cassandra-driver": "3.0.2",
+        "express-session": "1.13.0"
+    },
+    "devDependencies": {
+        "mocha": "*"
+    },
+    "homepage": "https://imergo.com/solutions/opensource.html",
+    "main": "./lib/CassandraStore",
+    "license": "Apache-2.0",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/webcc/cassandra-store.git"
+    },
+    "scripts": {
+        "test": "mocha -R spec -t 10000 test/*.js"
+    },
+    "readmeFilename": "README.md",
+    "engines": {
+        "node": ">=6.0.0"
+    }
 }

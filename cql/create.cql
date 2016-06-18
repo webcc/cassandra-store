@@ -1,10 +1,10 @@
 USE tests;
 
-DROP TABLE IF EXISTS express_session;
+DROP TABLE IF EXISTS sessions;
 
-CREATE TABLE IF NOT EXISTS express_session (
+CREATE TABLE IF NOT EXISTS sessions (
    sid text,
    session text,
    expires timestamp,
-   PRIMARY KEY (sid)
+   PRIMARY KEY(sid)
 );

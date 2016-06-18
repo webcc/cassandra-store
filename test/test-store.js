@@ -1,21 +1,20 @@
 "use strict";
+
 describe("cassandra-store", function ()
 {
-    var assert = require("assert");
-    var debug = require("debug")("cassandra-store");
-    var session = require("express-session");
-    var cassandra = require("cassandra-driver");
-    var uuid = require("uuid");
-    var CassandraStore = require("../lib/cassandra-store")(session);
-    var id = uuid.v1();
-    var options = {
-        table: "express_session",
+    const assert = require("assert");
+    const cassandra = require("cassandra-driver");
+    const CassandraStore = require("..");
+
+    const id = cassandra.types.TimeUuid.now().toString();
+    const options = {
+        table: "sessions",
         clientOptions: {
-            contactPoints: [process.env.DBHOST || "localhost"],
+            contactPoints: (process.env.DBHOST || "localhost").split(","),
             keyspace: "tests"
         }
     };
-    var testSession = {
+    const testSession = {
         "cookie": {
             "path": "/",
             "httpOnly": true,
@@ -24,26 +23,40 @@ describe("cassandra-store", function ()
         },
         "name": "sid"
     };
-    var store = null;
-    it("should init a store from client config", function ()
+    let store = undefined;
+    before("should prepare default empty store with new client", (done) =>
     {
-        store = new CassandraStore(options);
-        assert(typeof store.client === "object");
-        assert.equal(store.client.keyspace, options.clientOptions.keyspace);
-    });
-    it("should init a store with a custom client", function (done)
-    {
-        var customClient = new cassandra.Client(options.clientOptions);
-        var opts = {
-            table: "express_session",
-            client: customClient
-        };
-        customClient.connect(function (error)
+        store = new CassandraStore(options, (err, res) =>
         {
-            assert.equal(error, null);
-            store = new CassandraStore(opts);
-            assert(typeof store.client === "object");
-            assert.equal(store.client.keyspace, options.clientOptions.keyspace);
+            assert.strictEqual(err, null);
+            store.clear((err1, res1) =>
+            {
+                assert.strictEqual(err1, null);
+                done();
+            });
+        });
+    });
+    it("should test the default store", () =>
+    {
+        assert(typeof store.client === "object");
+        assert.strictEqual(store.client.keyspace, options.clientOptions.keyspace);
+        assert.strictEqual(store.table, `${options.table}`);
+    });
+    it("should init a store with a custom client", (done) =>
+    {
+        const customClient = new cassandra.Client(options.clientOptions);
+        const opts = {
+            client: customClient,
+            clientOptions: {
+                contactPoints: (process.env.DBHOST || "localhost").split(","),
+                keyspace: "tests"
+            }
+        };
+        const store2 = new CassandraStore(opts, (err, res) =>
+        {
+            assert.strictEqual(typeof store2.client, "object");
+            assert.strictEqual(store2.client.keyspace, opts.clientOptions.keyspace);
+            assert.strictEqual(store2.table, "sessions");
             done();
         });
     });
@@ -51,7 +64,7 @@ describe("cassandra-store", function ()
     {
         store.set(id, testSession, function (error, result)
         {
-            assert.equal(error, null);
+            assert.strictEqual(error, null);
             done();
         });
     });
@@ -59,7 +72,7 @@ describe("cassandra-store", function ()
     {
         store.get(id, function (error, session)
         {
-            assert.equal(error, null);
+            assert.strictEqual(error, null);
             assert.deepEqual(session, testSession);
             done();
         });
@@ -68,9 +81,36 @@ describe("cassandra-store", function ()
     {
         store.all(function (error, sessions)
         {
-            assert.equal(error, null);
-            assert.equal(sessions.length, 1);
+            assert.strictEqual(error, null);
+            assert.strictEqual(sessions.length, 1);
             assert.deepEqual(sessions[0], testSession);
+            done();
+        });
+    });
+    it("should get correct length of existing db sessions", function (done)
+    {
+        store.length(function (error, length)
+        {
+            assert.strictEqual(error, null);
+            assert.strictEqual(length, 1);
+            done();
+        });
+    });
+    it("should touch an existing session", function (done)
+    {
+        const newSession = {
+            "cookie": {
+                "path": "/",
+                "httpOnly": true,
+                "secure": true,
+                "maxAge": 1200000
+            },
+            "name": "sid"
+        };
+        store.touch(id, newSession, function (error, session)
+        {
+            assert.strictEqual(error, null);
+            assert.deepEqual(session, newSession);
             done();
         });
     });
@@ -78,9 +118,13 @@ describe("cassandra-store", function ()
     {
         store.destroy(id, function (error, result)
         {
-            assert.equal(error, null);
-            assert.equal(error, undefined);
-            done();
+            assert.strictEqual(error, null);
+            store.length(function (err, length)
+            {
+                assert.strictEqual(error, null);
+                assert.strictEqual(length, 0);
+                done();
+            });
         });
     });
 });

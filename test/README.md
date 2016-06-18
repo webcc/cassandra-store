@@ -2,12 +2,9 @@
 
 Define the cassandra host location in an environment variable:
 
-```
-export DBHOST=cassandra.example.org
+```console
+$ export DBHOST=cassandra.example.org
 ```
 
-Other client properties must be declared in the file:
-
-```
-./config/cassandra.json
-```
+Other client properties that refer to other keyspace or table that are
+not the default ones shall be updated in the test file.
