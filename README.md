@@ -1,9 +1,6 @@
 cassandra-store
 ===============
 
-[![NPM Version][npm-image]][npm-url]
-[![NPM Downloads][downloads-image]][downloads-url]
-
 Implementation of the session storage in [Apache Cassandra](https://cassandra.apache.org/)
 as an extension of the [express-session middleware](https://github.com/expressjs/session).
 This version has been fully updated to ES6 and Node.js >= 6.0.0. For backwards
