@@ -12,7 +12,7 @@ compatibility, use older versions of the package.
 
 ## Installation
 
-```console
+```bash
 npm install [-g] cassandra-store
 ```
 
