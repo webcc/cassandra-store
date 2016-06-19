@@ -1,34 +1,39 @@
 cassandra-store
 ===============
 
-Implementation of the session storage in [Apache Cassandra](https://cassandra.apache.org/)
-as an extension of the [express-session middleware](https://github.com/expressjs/session).
+[![NPM Version][npm-image]][npm-url]
+[![NPM Downloads][npm-downloads]][npm-url]
+![Node][node-version]
+
+Implementation of the session storage in [Apache Cassandra][cassandra]
+as an extension of the [express-session middleware][express-session].
 This version has been fully updated to ES6 and Node.js >= 6.0.0. For backwards
 compatibility, use older versions of the package.
 
 ## Installation
 
 ```console
-$ npm install [-g] cassandra-store
+npm install [-g] cassandra-store
 ```
 
 ## Options
 
-```
+```json
 {
-    table: "sessions",
-    client: null, // an existing cassandra client
-    clientOptions: {
-        contactPoints: [ "localhost" ],
-        keyspace: "tests",
-        queryOptions: {
+    "table": "sessions",
+    "client": null,
+    "clientOptions": {
+        "contactPoints": [ "localhost" ],
+        "keyspace": "tests",
+        "queryOptions": {
             "prepare": true
         }
     }
-};
+}
 ```
 
-Client options come from the [Cassandra client driver](http://docs.datastax.com/en/drivers/nodejs/3.0/) (version 3.x).
+If `client` is `null` or undefined, a new Cassandra client will be created.
+Client options come from the [Cassandra client driver][cassandra-driver] (version 3.x).
 
 ## Configuring the database
 
@@ -53,7 +58,7 @@ CREATE TABLE IF NOT EXISTS sessions (
 To activate debugging, set the environment variable `NODE_DEBUG`:
 
 ```console
-$ export NODE_DEBUG=cassandra-store
+export NODE_DEBUG=cassandra-store
 ```
 
 ## Usage
@@ -74,3 +79,11 @@ app.use(session({
 
 - Updated to ES6 and Node.js >= 6.0.0
 - Removed dependencies on external packages uuid and debug
+
+[cassandra]: https://cassandra.apache.org/
+[cassandra-driver]: http://docs.datastax.com/en/drivers/nodejs/3.0/
+[express-session]: https://github.com/expressjs/session
+[node-version]: https://img.shields.io/badge/node-6.0.0-orange.svg?style=plastic
+[npm-image]: https://img.shields.io/badge/npm-4.0.1-blue.svg?style=plastic
+[npm-downloads]: https://img.shields.io/badge/downloads-12k-red.svg?style=plastic
+[npm-url]: https://www.npmjs.com/package/cassandra-store
