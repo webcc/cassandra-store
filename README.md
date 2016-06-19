@@ -12,8 +12,8 @@ compatibility, use older versions of the package.
 
 ## Installation
 
-```bash
-npm install [-g] cassandra-store
+```shell
+$ npm install [-g] cassandra-store
 ```
 
 ## Options
@@ -57,8 +57,8 @@ CREATE TABLE IF NOT EXISTS sessions (
 
 To activate debugging, set the environment variable `NODE_DEBUG`:
 
-```console
-export NODE_DEBUG=cassandra-store
+```shell
+$ export NODE_DEBUG=cassandra-store
 ```
 
 ## Usage
