@@ -29,7 +29,7 @@ describe("cassandra-store", function ()
         store = new CassandraStore(options, (err, res) =>
         {
             assert.strictEqual(err, null);
-            store.clear((err1, res1) =>
+            store.clear((err1) =>
             {
                 assert.strictEqual(err1, null);
                 done();
@@ -54,6 +54,7 @@ describe("cassandra-store", function ()
         };
         const store2 = new CassandraStore(opts, (err, res) =>
         {
+            assert.strictEqual(err, null);
             assert.strictEqual(typeof store2.client, "object");
             assert.strictEqual(store2.client.keyspace, opts.clientOptions.keyspace);
             assert.strictEqual(store2.table, "sessions");
@@ -62,7 +63,7 @@ describe("cassandra-store", function ()
     });
     it("should set a session", function (done)
     {
-        store.set(id, testSession, function (error, result)
+        store.set(id, testSession, function (error)
         {
             assert.strictEqual(error, null);
             done();
@@ -117,16 +118,20 @@ describe("cassandra-store", function ()
             },
             "name": "sid"
         };
-        store.touch(id, newSession, function (error, session)
+        store.touch(id, newSession, function (error)
         {
             assert.strictEqual(error, null);
-            assert.deepEqual(session, newSession);
-            done();
+            store.get(id, function (err, session)
+            {
+                assert.strictEqual(err, null);
+                assert.deepEqual(session, newSession);
+                done();
+            });
         });
     });
     it("should destroy an existing session", function (done)
     {
-        store.destroy(id, function (error, result)
+        store.destroy(id, function (error)
         {
             assert.strictEqual(error, null);
             store.length(function (err, length)
