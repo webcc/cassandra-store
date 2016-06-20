@@ -61,6 +61,10 @@ To activate debugging, set the environment variable `NODE_DEBUG`:
 $ export NODE_DEBUG=cassandra-store
 ```
 
+## Testing
+
+See [test/README.md](test/README.md)
+
 ## Usage
 
 Usage within express:
@@ -84,6 +88,6 @@ app.use(session({
 [cassandra-driver]: http://docs.datastax.com/en/drivers/nodejs/3.0/
 [express-session]: https://github.com/expressjs/session
 [node-version]: https://img.shields.io/badge/node-6.0.0-orange.svg?style=plastic
-[npm-image]: https://img.shields.io/badge/npm-4.1.1-blue.svg?style=plastic
+[npm-image]: https://img.shields.io/badge/npm-4.1.2-blue.svg?style=plastic
 [npm-downloads]: https://img.shields.io/badge/downloads-12k-red.svg?style=plastic
 [npm-url]: https://www.npmjs.com/package/cassandra-store

@@ -77,6 +77,16 @@ describe("cassandra-store", function ()
             done();
         });
     });
+    it("should get null for a non existing session", function (done)
+    {
+        const id2 = cassandra.types.TimeUuid.now().toString();
+        store.get(id2, function (error, session)
+        {
+            assert.strictEqual(error, null);
+            assert.strictEqual(session, null);
+            done();
+        });
+    });
     it("should get all existing sessions", function (done)
     {
         store.all(function (error, sessions)
