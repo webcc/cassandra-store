@@ -87,7 +87,7 @@ app.use(session({
 [cassandra]: https://cassandra.apache.org/
 [cassandra-driver]: http://docs.datastax.com/en/drivers/nodejs/3.0/
 [express-session]: https://github.com/expressjs/session
-[node-version]: https://img.shields.io/badge/node-6.0.0-orange.svg?style=plastic
-[npm-image]: https://img.shields.io/badge/npm-4.1.3-blue.svg?style=plastic
-[npm-downloads]: https://img.shields.io/badge/downloads-12k-red.svg?style=plastic
+[node-version]: https://img.shields.io/badge/node-6.0.0-orange.svg?style=flat-square
+[npm-image]: https://img.shields.io/badge/npm-4.1.4-blue.svg?style=flat-square
+[npm-downloads]: https://img.shields.io/badge/downloads-12k-red.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/cassandra-store
