@@ -7,7 +7,7 @@ cassandra-store
 
 Implementation of the session storage in [Apache Cassandra][cassandra]
 as an extension of the [express-session middleware][express-session].
-This version has been fully updated to ES6 and Node.js >= 6.0.0. For backwards
+This version has been fully updated to ES6 and Node.js >= 10. For backwards
 compatibility, use older versions of the package.
 
 ## Installation
@@ -79,15 +79,14 @@ app.use(session({
 }));
 ```
 
-## Major changes
+## TODO
 
-- Updated to ES6 and Node.js >= 6.0.0
-- Removed dependencies on external packages uuid and debug
+- Update to Cassandra driver Promises API
 
 [cassandra]: https://cassandra.apache.org/
 [cassandra-driver]: http://docs.datastax.com/en/drivers/nodejs/3.0/
 [express-session]: https://github.com/expressjs/session
-[node-version]: https://img.shields.io/badge/node-6.0.0-orange.svg?style=flat-square
-[npm-image]: https://img.shields.io/badge/npm-4.1.4-blue.svg?style=flat-square
+[node-version]: https://img.shields.io/badge/node-10-orange.svg?style=flat-square
+[npm-image]: https://img.shields.io/badge/npm-5.0.0-blue.svg?style=flat-square
 [npm-downloads]: https://img.shields.io/badge/downloads-12k-red.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/cassandra-store

@@ -28,7 +28,7 @@ describe("cassandra-store", function ()
     {
         store = new CassandraStore(options, (err, res) =>
         {
-            assert.strictEqual(err, null);
+            assert.strictEqual(err, undefined);
             store.clear((err1) =>
             {
                 assert.strictEqual(err1, null);
@@ -54,7 +54,7 @@ describe("cassandra-store", function ()
         };
         const store2 = new CassandraStore(opts, (err, res) =>
         {
-            assert.strictEqual(err, null);
+            assert.strictEqual(err, undefined);
             assert.strictEqual(typeof store2.client, "object");
             assert.strictEqual(store2.client.keyspace, opts.clientOptions.keyspace);
             assert.strictEqual(store2.table, "sessions");

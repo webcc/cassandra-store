@@ -1,17 +1,17 @@
 {
     "name": "cassandra-store",
     "description": "Implementation of the session storage in Apache Cassandra as express middleware.",
-    "version": "4.1.4",
+    "version": "5.0.0",
     "author": {
         "name": "Web Compliance Center",
         "email": "webcc@fit.fraunhofer.de"
     },
     "dependencies": {
-        "cassandra-driver": "3.0.2",
-        "express-session": "1.13.0"
+        "cassandra-driver": "3.5.0",
+        "express-session": "1.15.6"
     },
     "devDependencies": {
-        "mocha": "*"
+        "mocha": "5.2.0"
     },
     "homepage": "https://imergo.com/solutions/opensource.html",
     "main": "./lib/CassandraStore",
@@ -25,6 +25,6 @@
     },
     "readmeFilename": "README.md",
     "engines": {
-        "node": ">=6.0.0"
+        "node": ">=10"
     }
 }
