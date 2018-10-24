@@ -1,7 +1,7 @@
 {
     "name": "cassandra-store",
     "description": "Implementation of the session storage in Apache Cassandra as express middleware.",
-    "version": "5.0.0",
+    "version": "5.1.0",
     "author": {
         "name": "Web Compliance Center",
         "email": "webcc@fit.fraunhofer.de"
@@ -19,6 +19,9 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/webcc/cassandra-store.git"
+    },
+    "publishConfig": {
+        "registry": "https://registry.npmjs.com/"
     },
     "scripts": {
         "test": "mocha --exit --reporter spec --timeout 10000 test/*.js"

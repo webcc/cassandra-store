@@ -84,9 +84,9 @@ app.use(session({
 - Update to Cassandra driver Promises API
 
 [cassandra]: https://cassandra.apache.org/
-[cassandra-driver]: http://docs.datastax.com/en/drivers/nodejs/3.0/
+[cassandra-driver]: https://docs.datastax.com/en/developer/nodejs-driver/3.5/
 [express-session]: https://github.com/expressjs/session
 [node-version]: https://img.shields.io/badge/node-10-orange.svg?style=flat-square
-[npm-image]: https://img.shields.io/badge/npm-5.0.0-blue.svg?style=flat-square
+[npm-image]: https://img.shields.io/badge/npm-5.1.0-blue.svg?style=flat-square
 [npm-downloads]: https://img.shields.io/badge/downloads-12k-red.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/cassandra-store
